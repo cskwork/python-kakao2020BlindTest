@@ -7,38 +7,53 @@ algo
 	s.length > 1 s.length < 1000
 	s = lower()
 
+    for s in _str:
+
 
 """
+
+
+#----------------
 _str = ["aabbaccc", "ababcdcdababcdcd", "abcabcdede", 
  "abcabcabcabcdededededede", "xababcdcdababcdcd"]
-for s in _str:
-    min_zip_number = len(s) # 최소길이
- 
-    for i in range(1, len(s) + 1):
-        output = '' # 압축한 문자열
-        zip_str = s[0:i] # 비교 문자열
-        zip_cnt = 1 # 압축률
- 
-        # i개 씩 증가
-        for j in range(i, len(s) + 1, i):
-            # 압축할 문자열과 같은 문자열이 나오는 경우 압축률 증가
-            if zip_str == s[j:j+i]:
-                zip_cnt += 1
-            # 압축률과 압축문자열을 output에 추가
-            else:
-            	output += "{}".format(zip_cnt if zip_cnt > 1 else '') + zip_str
-                zip_str = s[j:j + i]
-                zip_cnt = 1
-        # 마지막 비교 문자열을 더해준다
-        output += zip_str
- 
-        # 최소 길이 update
-        if min_zip_number > len(output):
-            min_zip_number = len(output)
- 
-    answer = min_zip_number
-    print(answer)
 
+_str = ["aabbaaccc"]
+
+
+# 1st iter - 1개로 반복 2nd iter - 2개 반복 ... n개 반복
+for s in _str:
+    print('압축할 문자열: ',s)
+    minZip_number = len(s) #최소 압축 길이
+    print('최소 압축 길이: ',minZip_number)
+    for i in range(1, minZip_number + 1):
+        print('반복 순차: ',i)
+        output = '' #압축한 문자열
+        zip_str = s[0:i] #비교 문자열
+        zip_cnt = 1 #압축률
+
+
+        for j in range(i, minZip_number + 1 , i):
+            print('비교 문자열 vs 압축할 문자열 ',zip_str,'==', s[j:j+1] )
+            print('압축률(횟수): ',minZip_number)
+            # 압축할 문자열과 == 같은 문자열이 나오는 경우 압축률 증가
+            if zip_str == s[j:j+1]: 
+                zip_cnt +=1
+
+            else: # 압축률과 압축문자열을 output에 추가
+                output += "{}".format(zip_cnt if zip_cnt > 1 else '') + zip_str
+                zip_str = s[j:j+1]
+                zip_cnt = 1
+        output += zip_str  # 마지막 비교 문자열을 더해준다
+
+        if minZip_number > len(output):
+            minZip_number = len(output)  # 최소 길이 update
+            print('output: ',output,'/ 최소 압축 길이 답변: ',minZip_number)
+
+    answer = minZip_number
+    print('최종 output: ',output,'/ 최소 압축 길이 답변: ',answer)
+
+
+#---------------------------------
 """
 문제 설명
 데이터 처리 전문가가 되고 싶은 어피치는 문자열을 압축하는 방법에 대해 공부를 하고 있습니다. 
